@@ -1,0 +1,43 @@
+<!-- components/Header/Header.html -->
+<template id="header-template">
+  <header class="header">
+    <div class="header__inner container">
+      <!-- 브랜딩 그룹 -->
+      <a class="header__logo" href="#" aria-label="YouTube Music 홈">
+        <svg class="header__logo-icon" aria-hidden="true">
+          <use href="assets/icons/sprite.svg#youtube"></use>
+        </svg>
+        <span class="header__logo-text">Music</span>
+      </a>
+
+      <!-- [수정]: JS 제어를 위해 data-target 속성 부여 및 기본 href 동작 방지 -->
+      <nav class="header__nav" aria-label="메인 메뉴" id="main-nav">
+        <a class="header__nav-link header__nav-link--active" href="#" data-target="home-view">
+          <svg class="header__nav-icon" aria-hidden="true">
+            <use href="assets/icons/sprite.svg#music"></use>
+          </svg>
+          <span class="header__nav-text">홈</span>
+        </a>
+        <a class="header__nav-link" href="#" data-target="search-view">
+          <svg class="header__nav-icon" aria-hidden="true">
+            <use href="assets/icons/sprite.svg#search"></use>
+          </svg>
+          <span class="header__nav-text">검색</span>
+        </a>
+        <a class="header__nav-link" href="#" data-target="library-view">
+          <svg class="header__nav-icon" aria-hidden="true">
+            <use href="assets/icons/sprite.svg#list"></use>
+          </svg>
+          <span class="header__nav-text">라이브러리</span>
+        </a>
+      </nav>
+
+      <!-- 우측 보조 인터랙션 아바타 -->
+      <div class="header__utility">
+        <button class="header__profile-btn" aria-label="마이 프로필">
+          <div class="header__profile-avatar"></div>
+        </button>
+      </div>
+    </div>
+  </header>
+</template>

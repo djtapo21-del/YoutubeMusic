@@ -1,0 +1,19 @@
+# Environment variables (보안 변수 파일 제외)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+# Netlify local cache
+.netlify
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln

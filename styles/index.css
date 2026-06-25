@@ -1,0 +1,240 @@
+/* ==========================================================================
+   GLOBAL RESET & MODERN DEFAULTS (variables.css에서 이식 완료)
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-base);
+  line-height: var(--line-height-normal);
+  min-width: 320px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   GLOBAL LAYOUT FRAMEWORK
+   ========================================================================== */
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--color-bg-base);
+}
+
+/* [추가]: 부모 컨테이너 제약을 없애 자식인 .header가 본문 스크롤 전체에서 sticky되도록 유도 */
+#header-section {
+  display: contents;
+}
+
+#content-section {
+  flex: 1;
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+/* 드래그 테마 마스크 매칭 */
+::selection {
+  background-color: rgba(var(--color-primary-rgb), 0.3);
+  color: var(--color-text-primary);
+}
+
+/* 커스텀 슬라이딩 스크롤바 디자인 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-bg-base);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}
+
+/* 100% 무한 확장형 풀 와이드 컨테이너 설계 및 유체 여백 바인딩 */
+.container {
+  width: 100%;
+  padding-left: var(--page-padding-inline);
+  padding-right: var(--page-padding-inline);
+}
+
+/* --- Error Component (실제 에러 복구 시 사용됨) --- */
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-2xl) 0;
+  text-align: center;
+  width: 100%;
+}
+
+.error__message {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.error__sub-message {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.error__retry-btn {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  background-color: var(--color-primary);
+  padding: 10px 22px;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-smooth), transform var(--transition-smooth);
+}
+
+.error__retry-btn:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+}
+
+.error__retry-btn:active {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Skeleton Shimmer Utilities & Components (Strict Design Tokens)
+   ========================================================================== */
+
+/* 쉬머 애니메이션 단일 정의 */
+@keyframes shimmer {
+  0% {
+    background-color: var(--color-bg-card);
+  }
+
+  50% {
+    background-color: var(--color-bg-hover);
+  }
+
+  100% {
+    background-color: var(--color-bg-card);
+  }
+}
+
+.skeleton-shimmer {
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* 뼈대 블록의 기본 형태 정의 */
+.skeleton-block {
+  display: block;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-card);
+}
+
+.skeleton-block--pill {
+  border-radius: var(--radius-full);
+}
+
+.skeleton-block--circle {
+  border-radius: var(--radius-full);
+}
+
+/* 각 구역별 블록의 너비/높이 규격화 */
+.skeleton-banner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  width: 100%;
+  margin-bottom: var(--spacing-xl);
+}
+
+.skeleton-banner__video {
+  width: 100%;
+  height: var(--banner-height-fluid);
+}
+
+.skeleton-banner-badge {
+  width: 110px;
+  height: 26px;
+}
+
+.skeleton-banner-title {
+  width: 65%;
+  height: var(--font-size-fluid-title);
+}
+
+.skeleton-banner-channel {
+  width: 35%;
+  height: var(--font-size-sm);
+}
+
+.skeleton-banner-rank {
+  width: 70px;
+  height: var(--height-control);
+}
+
+.skeleton-banner-btn {
+  width: var(--height-control);
+  height: var(--height-control);
+}
+
+.skeleton-album-title {
+  width: 140px;
+  height: var(--font-size-fluid-h2);
+}
+
+.skeleton-card-title {
+  width: 75%;
+  height: var(--font-size-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.skeleton-card-artist {
+  width: 50%;
+  height: var(--font-size-xs);
+}

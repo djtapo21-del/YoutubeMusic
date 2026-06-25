@@ -1,0 +1,86 @@
+/* ============================================
+   AlbumCard Component — Fluid Grid Spec
+   ============================================ */
+
+.album-list {
+  padding-top: var(--section-gap-fluid);
+  padding-bottom: var(--spacing-md);
+}
+
+.album-list__title {
+  font-size: var(--font-size-fluid-h2);
+  /* [수정]: 하드코딩 700에서 공통 굵기 토큰으로 치환 */
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text-primary);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.album-list__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--grid-gap-fluid);
+}
+
+/* 2열 -> 3열 -> 6열 반응형 분기 */
+@media (min-width: 768px) {
+  .album-list__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .album-list__grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.album-card {
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  /* [수정]: 0.3s ease 트랜지션을 전역 트랜지션 속도로 치환 */
+  transition: background-color var(--transition-smooth);
+  cursor: pointer;
+  outline: none;
+}
+
+.album-card:hover {
+  background-color: var(--color-bg-surface);
+}
+
+.album-card:focus-visible {
+  /* [수정]: 포커스 아웃라인 두께 일치화 */
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.album-card__image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  background-color: var(--color-bg-surface);
+}
+
+.album-card__info {
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-md);
+}
+
+.album-card__title {
+  font-size: var(--font-size-sm);
+  /* [수정]: 하드코딩 600에서 공통 세미볼드 토큰으로 치환 */
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-xs);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.album-card__artist {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

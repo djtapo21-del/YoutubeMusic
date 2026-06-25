@@ -1,0 +1,31 @@
+<!-- components/HeroBanner/HeroBanner.html -->
+<template id="hero-banner-template">
+    <section class="hero-banner">
+        <!-- 1. 배경 유튜브 비디오 wrapper -->
+        <div class="hero-banner__video-wrapper">
+            <!-- [접근성 보완]: title="인기 뮤직비디오 플레이어" 속성 추가 -->
+            <iframe class="hero-banner__video" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen
+                title="인기 뮤직비디오 플레이어"></iframe>
+        </div>
+
+        <!-- 2. 영상 하단 정보 및 네비게이션 제어 영역 -->
+        <div class="hero-banner__info-container container">
+            <!-- 왼쪽: 곡 및 채널 정보 -->
+            <div class="hero-banner__content-left">
+                <span class="hero-banner__badge">인기 뮤직비디오</span>
+                <h2 class="hero-banner__title"></h2>
+                <p class="hero-banner__channel"></p>
+            </div>
+
+            <!-- 오른쪽: 순위 표시 및 다음 영상 이동 화살표 -->
+            <div class="hero-banner__content-right">
+                <span class="hero-banner__rank"></span>
+                <button class="hero-banner__next-btn" aria-label="다음 뮤직비디오">
+                    <svg class="hero-banner__arrow-icon">
+                        <use href="assets/icons/sprite.svg#chevron-right"></use>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+</template>

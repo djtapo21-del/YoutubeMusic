@@ -1,0 +1,7 @@
+[build]
+  publish = "."  # [추가됨]: 실제 배포할 정적 파일 폴더를 루트(.)로 지정합니다.
+  functions = "netlify/functions"
+
+[dev]
+  port = 8888
+  publish = "."

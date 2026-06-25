@@ -1,0 +1,91 @@
+/* ==========================================================================
+   DESIGN TOKENS (Pure Custom Properties Only)
+   ========================================================================== */
+
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
+
+:root {
+  /* --- Brand Colors --- */
+  --color-primary: #ff0033;
+  --color-primary-hover: #cc0029;
+  --color-primary-rgb: 255, 0, 51;
+
+  /* --- Dark Theme Elevation System --- */
+  --color-bg-base: #070708;
+  --color-bg-surface: #0f0f11;
+  --color-bg-card: #18181c;
+  --color-bg-hover: rgba(255, 255, 255, 0.08);
+  --color-bg-active: rgba(255, 255, 255, 0.12);
+
+  /* --- Typography Colors --- */
+  --color-text-primary: #f5f5f7;
+  --color-text-secondary: #9a9ab0;
+  --color-text-muted: #5e5e6e;
+
+  /* --- Typography Scale --- */
+  --font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.375rem;
+  --font-size-2xl: 1.75rem;
+
+  /* --- Fluid Typography --- */
+  --font-size-fluid-h2: clamp(1.25rem, 3.5vw, 1.75rem);
+  --font-size-fluid-title: clamp(1rem, 2.2vw, 1.25rem);
+
+  /* --- Font Weights --- */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 800;
+
+  /* --- Line Heights --- */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+
+  /* --- Letter Spacing --- */
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0em;
+
+  /* --- Border Radius --- */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+
+  /* --- Spacing System --- */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+
+  /* --- Fluid Spacing --- */
+  --page-padding-inline: clamp(1rem, 4vw, 3.125rem);
+  --grid-gap-fluid: clamp(10px, 1.8vw, 24px);
+  --section-gap-fluid: clamp(24px, 5vw, 64px);
+
+  /* --- Fluid Banner Height --- */
+  --banner-height-fluid: clamp(200px, 38vw, 800px);
+
+  /* --- 공통 유리 효과(Glassmorphism) 토큰 --- */
+  --color-glass-bg: rgba(7, 7, 8, 0.85);
+  --color-glass-border: rgba(255, 255, 255, 0.04);
+  --blur-glass: 24px;
+
+  /* --- Sizing Token --- */
+  --header-height: 56px;
+  --height-control: 36px;
+  --transition-smooth: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --header-height: 64px;
+    --height-control: 40px;
+  }
+}

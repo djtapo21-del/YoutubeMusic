@@ -1,0 +1,136 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  /* [수정 완료]: 헤더 전용 토큰에서 범용 유리(Glass) 효과 토큰으로 변경 */
+  background-color: var(--color-glass-bg);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  border-bottom: 1px solid var(--color-glass-border);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  padding-left: var(--page-padding-inline);
+  padding-right: var(--page-padding-inline);
+}
+
+/* --- Brand Logo --- */
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.header__logo-icon {
+  width: var(--font-size-2xl);
+  height: var(--font-size-2xl);
+  fill: var(--color-primary);
+}
+
+.header__logo-text {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-black);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+/* 초소형 모바일 기기 대응 */
+@media (max-width: 350px) {
+  .header__logo-text {
+    display: none;
+  }
+}
+
+/* --- Navigation Tab-Bar --- */
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.header__nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-full);
+  color: var(--color-text-secondary);
+  transition: background-color var(--transition-smooth), color var(--transition-smooth);
+}
+
+.header__nav-link:hover {
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-hover);
+}
+
+.header__nav-link--active {
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-active);
+}
+
+.header__nav-icon {
+  width: var(--font-size-lg);
+  height: var(--font-size-lg);
+  fill: currentColor;
+}
+
+/* 모바일 기본 텍스트 숨김 처리 */
+.header__nav-text {
+  display: none;
+}
+
+/* --- Profile Section --- */
+.header__profile-btn {
+  display: flex;
+  width: var(--spacing-xl);
+  height: var(--spacing-xl);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  background-color: var(--color-bg-card);
+}
+
+.header__profile-avatar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+}
+
+/* --- Tablet & PC Adaptations (768px 이상) --- */
+@media (min-width: 768px) {
+  .header__logo-icon {
+    width: var(--spacing-xl);
+    height: var(--spacing-xl);
+  }
+
+  .header__logo-text {
+    font-size: var(--font-size-xl);
+  }
+
+  /* 네비게이션 중앙 정렬 배치 */
+  .header__nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: var(--spacing-sm);
+  }
+
+  .header__nav-link {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .header__nav-text {
+    display: inline;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-tight);
+  }
+
+  .header__profile-btn {
+    width: var(--height-control);
+    height: var(--height-control);
+  }
+}

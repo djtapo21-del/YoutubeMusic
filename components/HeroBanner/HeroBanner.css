@@ -1,0 +1,144 @@
+/* ============================================
+   HeroBanner Component — Fluid Spec & Strict Tokens
+   ============================================ */
+
+.hero-banner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-gap-fluid);
+    width: 100%;
+    margin-bottom: var(--section-gap-fluid);
+}
+
+@media (min-width: 768px) {
+    .hero-banner {
+        gap: var(--spacing-md);
+    }
+}
+
+/* ===== Video Card Area ===== */
+.hero-banner__video-wrapper {
+    position: relative;
+    width: 100%;
+    height: var(--banner-height-fluid);
+    background-color: var(--color-bg-base);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-banner__video {
+    height: 100%;
+    width: auto;
+    aspect-ratio: 16 / 9;
+    display: block;
+}
+
+.hero-banner__overlay {
+    display: none;
+}
+
+/* ===== Info & Controls Container ===== */
+.hero-banner__info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding-top: var(--spacing-xs);
+    padding-bottom: var(--spacing-xs);
+}
+
+/* 왼쪽: 곡 정보 */
+.hero-banner__content-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    flex: 1;
+    min-width: 0;
+}
+
+.hero-banner__badge {
+    align-self: flex-start;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    background-color: rgba(var(--color-primary-rgb), 0.12);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(var(--color-primary-rgb), 0.25);
+}
+
+.hero-banner__title {
+    font-size: var(--font-size-fluid-title);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    line-height: var(--line-height-tight);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.hero-banner__channel {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-medium);
+}
+
+/* 오른쪽: 순위 표시 및 네비게이션 화살표 */
+.hero-banner__content-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+    .hero-banner__content-right {
+        gap: var(--spacing-md);
+    }
+}
+
+.hero-banner__rank {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--height-control);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-card);
+    padding: 0 var(--spacing-md);
+    border-radius: var(--radius-sm);
+}
+
+@media (min-width: 768px) {
+    .hero-banner__rank {
+        font-size: var(--font-size-sm);
+    }
+}
+
+.hero-banner__next-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--height-control);
+    height: var(--height-control);
+    border-radius: var(--radius-full);
+    background-color: var(--color-bg-card);
+    color: var(--color-text-primary);
+    transition: background-color var(--transition-smooth), color var(--transition-smooth);
+}
+
+.hero-banner__next-btn:hover {
+    background-color: var(--color-primary);
+    /* [수정]: #ffffff 하드코딩을 테마 텍스트 컬러로 치환 */
+    color: var(--color-text-primary);
+}
+
+.hero-banner__arrow-icon {
+    width: var(--spacing-lg);
+    height: var(--spacing-lg);
+    fill: currentColor;
+    display: block;
+}

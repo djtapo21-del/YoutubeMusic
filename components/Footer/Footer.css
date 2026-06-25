@@ -1,0 +1,38 @@
+/* ============================================
+   Footer Component — Clean Spec
+   ============================================ */
+
+.footer {
+  width: 100%;
+  background-color: var(--color-bg-surface);
+}
+
+.footer__inner {
+  padding-left: var(--page-padding-inline);
+  padding-right: var(--page-padding-inline);
+  padding-top: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+.footer__text {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.footer__links {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-sm);
+}
+
+.footer__link {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  transition: color var(--transition-smooth);
+}
+
+.footer__link:hover {
+  color: var(--color-text-primary);
+}
