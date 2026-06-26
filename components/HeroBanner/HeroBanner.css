@@ -1,13 +1,11 @@
-/* ============================================
-   HeroBanner Component — Fluid Spec & Strict Tokens
-   ============================================ */
+/* components/HeroBanner/HeroBanner.css */
 
 .hero-banner {
     display: flex;
     flex-direction: column;
     gap: var(--grid-gap-fluid);
     width: 100%;
-    margin-bottom: var(--section-gap-fluid);
+    margin-bottom: var(--spacing-lg);
 }
 
 @media (min-width: 768px) {
@@ -16,7 +14,6 @@
     }
 }
 
-/* ===== Video Card Area ===== */
 .hero-banner__video-wrapper {
     position: relative;
     width: 100%;
@@ -35,38 +32,21 @@
     display: block;
 }
 
-.hero-banner__overlay {
-    display: none;
-}
-
-/* ===== Info & Controls Container ===== */
 .hero-banner__info-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: var(--spacing-md);
-    padding-top: var(--spacing-xs);
+    padding-top: var(--spacing-sm);
     padding-bottom: var(--spacing-xs);
 }
 
-/* 왼쪽: 곡 정보 */
 .hero-banner__content-left {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-xs);
     flex: 1;
     min-width: 0;
-}
-
-.hero-banner__badge {
-    align-self: flex-start;
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-primary);
-    background-color: rgba(var(--color-primary-rgb), 0.12);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--radius-full);
-    border: 1px solid rgba(var(--color-primary-rgb), 0.25);
 }
 
 .hero-banner__title {
@@ -77,68 +57,307 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    height: 1.2em;
+    position: relative;
 }
 
 .hero-banner__channel {
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
     font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-tight);
+    height: 1.2em;
+    position: relative;
 }
 
-/* 오른쪽: 순위 표시 및 네비게이션 화살표 */
 .hero-banner__content-right {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
     flex-shrink: 0;
-}
-
-@media (min-width: 768px) {
-    .hero-banner__content-right {
-        gap: var(--spacing-md);
-    }
 }
 
 .hero-banner__rank {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 96px;
     height: var(--height-control);
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-bold);
     color: var(--color-text-primary);
     background-color: var(--color-bg-card);
-    padding: 0 var(--spacing-md);
     border-radius: var(--radius-sm);
 }
 
 @media (min-width: 768px) {
     .hero-banner__rank {
+        width: 106px;
         font-size: var(--font-size-sm);
     }
 }
 
-.hero-banner__next-btn {
+/* ==========================================================================
+   인기 뮤직비디오 TOP 10 플레이리스트 영역 Styles
+   ========================================================================== */
+
+.playlist {
+    padding-top: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    border-top: 1px solid var(--color-glass-border);
+}
+
+.playlist__title {
+    font-size: var(--font-size-fluid-h2);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-primary);
+    letter-spacing: var(--letter-spacing-tight);
+    line-height: 1.2;
+}
+
+.playlist__carousel-wrapper {
+    position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: var(--height-control);
-    height: var(--height-control);
-    border-radius: var(--radius-full);
+    width: 100%;
+}
+
+.playlist__grid {
+    display: flex;
+    gap: var(--grid-gap-fluid);
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    width: 100%;
+    padding-bottom: var(--spacing-xs);
+    -webkit-overflow-scrolling: touch;
+    /* 모바일 관성 스크롤 활성화 */
+}
+
+.playlist__grid::-webkit-scrollbar {
+    display: none;
+}
+
+/* 16:9 썸네일 반응형 그리드 시스템 */
+.playlist-card {
+    flex: 0 0 calc((100% - var(--grid-gap-fluid)) / 2);
+    min-width: 0;
+    cursor: pointer;
+    outline: none;
+}
+
+@media (min-width: 768px) {
+    .playlist-card {
+        flex: 0 0 calc((100% - (var(--grid-gap-fluid) * 2)) / 3);
+    }
+}
+
+@media (min-width: 1024px) {
+    .playlist-card {
+        flex: 0 0 calc((100% - (var(--grid-gap-fluid) * 5)) / 6);
+    }
+}
+
+.playlist-card__image-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-md);
+    overflow: hidden;
     background-color: var(--color-bg-card);
+    border: 1px solid transparent;
+    /* 기본 투명 테두리 (Hover 시 덜컹거림 방지) */
+    box-sizing: border-box;
+    transition: border var(--transition-smooth);
+}
+
+/* 🚨 마우스 오버시 이미지 확대 효과 대신 흰색 1px 선 처리 */
+.playlist-card:hover .playlist-card__image-wrapper {
+    border: 1px solid var(--color-text-primary);
+}
+
+/* 🚨 재생 중(Active)인 곡은 빨간색 1px 선 처리 */
+.playlist-card.is-active .playlist-card__image-wrapper {
+    border: 1px solid var(--color-primary);
+}
+
+.playlist-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.playlist-card__info {
+    padding-top: var(--spacing-sm);
+}
+
+.playlist-card__title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
     color: var(--color-text-primary);
+    margin-bottom: var(--spacing-xs);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 1.2em;
+    line-height: 1.2;
+    position: relative;
+}
+
+.playlist-card__artist {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 1.2em;
+    line-height: 1.2;
+    position: relative;
+}
+
+/* 🚨 가로 슬라이더 네비게이션 화살표 (모바일 기본 숨김 처리) */
+.playlist__nav-btn {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-text-primary);
+    color: var(--color-bg-base);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    /* 크기 팝업 애니메이션 효과 제거 (색상 전환만 유지) */
     transition: background-color var(--transition-smooth), color var(--transition-smooth);
 }
 
-.hero-banner__next-btn:hover {
+/* 🚨 데스크탑 PC 환경(1024px 이상)에서만 화살표 보이기 */
+@media (min-width: 1024px) {
+    .playlist__nav-btn {
+        display: flex;
+    }
+}
+
+.playlist__nav-btn--prev {
+    left: -20px;
+}
+
+/* 오른쪽용 Chevron 아이콘을 왼쪽으로 회전하여 재사용 */
+.playlist__nav-btn--prev .playlist__nav-icon {
+    transform: rotate(180deg);
+}
+
+.playlist__nav-btn--next {
+    right: -20px;
+}
+
+.playlist__nav-btn:hover {
     background-color: var(--color-primary);
-    /* [수정]: #ffffff 하드코딩을 테마 텍스트 컬러로 치환 */
     color: var(--color-text-primary);
 }
 
-.hero-banner__arrow-icon {
+.playlist__nav-icon {
     width: var(--spacing-lg);
     height: var(--spacing-lg);
     fill: currentColor;
-    display: block;
+}
+
+/* ==========================================================================
+   통합 스켈레톤(is-loading) 스타일링 (CLS 0%)
+   ========================================================================== */
+
+.hero-banner.is-loading {
+    pointer-events: none;
+}
+
+.hero-banner.is-loading .hero-banner__video {
+    display: none;
+}
+
+.hero-banner.is-loading .hero-banner__video-wrapper {
+    background-color: var(--skeleton-bg);
+    animation: var(--skeleton-shimmer);
+}
+
+.hero-banner.is-loading .hero-banner__title,
+.hero-banner.is-loading .hero-banner__channel {
+    color: transparent !important;
+}
+
+.hero-banner.is-loading .hero-banner__title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 65%;
+    height: 0.75em;
+    border-radius: var(--radius-sm);
+    background-color: var(--skeleton-bg-light);
+    animation: var(--skeleton-shimmer);
+}
+
+.hero-banner.is-loading .hero-banner__channel::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 35%;
+    height: 0.75em;
+    border-radius: var(--radius-sm);
+    background-color: var(--skeleton-bg-light);
+    animation: var(--skeleton-shimmer);
+}
+
+.hero-banner.is-loading .hero-banner__rank {
+    border-radius: var(--radius-sm);
+    background-color: var(--skeleton-bg-light);
+    color: transparent;
+    animation: var(--skeleton-shimmer);
+}
+
+.playlist.is-loading .playlist-card__image {
+    display: none !important;
+}
+
+.playlist.is-loading .playlist-card__image-wrapper {
+    background-color: var(--skeleton-bg);
+    animation: var(--skeleton-shimmer);
+}
+
+.playlist.is-loading .playlist-card__title,
+.playlist.is-loading .playlist-card__artist {
+    color: transparent !important;
+}
+
+.playlist.is-loading .playlist-card__title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 80%;
+    height: 0.75em;
+    border-radius: var(--radius-sm);
+    background-color: var(--skeleton-bg-light);
+    animation: var(--skeleton-shimmer);
+}
+
+.playlist.is-loading .playlist-card__artist::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50%;
+    height: 0.75em;
+    border-radius: var(--radius-sm);
+    background-color: var(--skeleton-bg-light);
+    animation: var(--skeleton-shimmer);
+}
+
+.playlist.is-loading .playlist__nav-btn {
+    display: none !important;
 }

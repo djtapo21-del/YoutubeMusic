@@ -1,31 +1,59 @@
 <!-- components/HeroBanner/HeroBanner.html -->
 <template id="hero-banner-template">
-    <section class="hero-banner">
-        <!-- 1. 배경 유튜브 비디오 wrapper -->
-        <div class="hero-banner__video-wrapper">
-            <!-- [접근성 보완]: title="인기 뮤직비디오 플레이어" 속성 추가 -->
-            <iframe class="hero-banner__video" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen
-                title="인기 뮤직비디오 플레이어"></iframe>
-        </div>
+    <div class="hero-banner-container">
 
-        <!-- 2. 영상 하단 정보 및 네비게이션 제어 영역 -->
-        <div class="hero-banner__info-container container">
-            <!-- 왼쪽: 곡 및 채널 정보 -->
-            <div class="hero-banner__content-left">
-                <span class="hero-banner__badge">인기 뮤직비디오</span>
-                <h2 class="hero-banner__title"></h2>
-                <p class="hero-banner__channel"></p>
+        <!-- 1. 메인 비디오 플레이어 영역 (배지 및 중복 화살표 삭제됨) -->
+        <section class="hero-banner">
+            <div class="hero-banner__video-wrapper">
+                <iframe class="hero-banner__video" src="" frameborder="0" allow="autoplay; encrypted-media"
+                    allowfullscreen title="인기 뮤직비디오 플레이어"></iframe>
             </div>
+            <div class="hero-banner__info-container container">
+                <div class="hero-banner__content-left">
+                    <h2 class="hero-banner__title"></h2>
+                    <p class="hero-banner__channel"></p>
+                </div>
+                <div class="hero-banner__content-right">
+                    <span class="hero-banner__rank"></span>
+                </div>
+            </div>
+        </section>
 
-            <!-- 오른쪽: 순위 표시 및 다음 영상 이동 화살표 -->
-            <div class="hero-banner__content-right">
-                <span class="hero-banner__rank"></span>
-                <button class="hero-banner__next-btn" aria-label="다음 뮤직비디오">
-                    <svg class="hero-banner__arrow-icon">
+        <!-- 2. 인기 뮤직비디오 TOP 10 플레이리스트 영역 (좌/우 화살표 추가) -->
+        <section class="playlist container">
+            <h2 class="playlist__title">인기 뮤직비디오 TOP 10</h2>
+            <div class="playlist__carousel-wrapper">
+
+                <!-- 왼쪽 이전 버튼 (Chevron-right를 180도 회전시켜 작동) -->
+                <button class="playlist__nav-btn playlist__nav-btn--prev" aria-label="이전 뮤직비디오 보기">
+                    <svg class="playlist__nav-icon">
+                        <use href="assets/icons/sprite.svg#chevron-right"></use>
+                    </svg>
+                </button>
+
+                <div class="playlist__grid" id="playlist-grid"></div>
+
+                <!-- 오른쪽 다음 버튼 -->
+                <button class="playlist__nav-btn playlist__nav-btn--next" aria-label="다음 뮤직비디오 보기">
+                    <svg class="playlist__nav-icon">
                         <use href="assets/icons/sprite.svg#chevron-right"></use>
                     </svg>
                 </button>
             </div>
+        </section>
+
+    </div>
+</template>
+
+<!-- 3. 개별 플레이리스트 카드 템플릿 -->
+<template id="playlist-card-template">
+    <article class="playlist-card">
+        <div class="playlist-card__image-wrapper">
+            <img class="playlist-card__image" src="" alt="" loading="lazy" />
         </div>
-    </section>
+        <div class="playlist-card__info">
+            <h3 class="playlist-card__title"></h3>
+            <p class="playlist-card__artist"></p>
+        </div>
+    </article>
 </template>

@@ -1,19 +1,16 @@
 <!-- components/AlbumCard/AlbumCard.html -->
 
-<!-- 1. 전체 최신 인기곡 섹션 레이아웃 템플릿 -->
 <template id="album-list-template">
   <section class="album-list">
-    <h2 class="album-list__title">최신 인기곡</h2>
-    <div class="album-list__grid" id="album-grid">
-      <!-- 이 내부에 복제된 곡 카드 6개가 차례대로 꽂힙니다 -->
-    </div>
+    <h2 class="album-list__title">국내 인기 급상승 음악</h2>
+    <div class="album-list__grid" id="album-grid"></div>
   </section>
 </template>
 
-<!-- 2. 개별 곡 한 장의 템플릿 -->
 <template id="album-card-template">
   <article class="album-card">
-    <img class="album-card__image" src="" alt="" loading="lazy" onerror="this.src='assets/icons/icon-music.svg'" />
+    <!-- 기본 형태로 복구 -->
+    <img class="album-card__image" src="" alt="" loading="lazy" />
     <div class="album-card__info">
       <h3 class="album-card__title"></h3>
       <p class="album-card__artist"></p>

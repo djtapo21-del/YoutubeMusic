@@ -81,11 +81,33 @@
   --header-height: 56px;
   --height-control: 36px;
   --transition-smooth: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- Skeleton Token --- */
+  --skeleton-bg: var(--color-bg-surface);
+  --skeleton-bg-light: var(--color-bg-card);
+  --skeleton-shimmer: shimmer 1.5s infinite linear;
 }
 
 @media (min-width: 768px) {
   :root {
     --header-height: 64px;
     --height-control: 40px;
+  }
+}
+
+/* ==========================================
+   [스켈레톤 디자인 토큰 통합]
+   ========================================== */
+@keyframes shimmer {
+  0% {
+    background-color: #121216;
+  }
+
+  50% {
+    background-color: #23232a;
+  }
+
+  100% {
+    background-color: #121216;
   }
 }

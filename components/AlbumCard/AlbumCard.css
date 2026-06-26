@@ -1,6 +1,4 @@
-/* ============================================
-   AlbumCard Component — Fluid Grid Spec
-   ============================================ */
+/* components/AlbumCard/AlbumCard.css */
 
 .album-list {
   padding-top: var(--section-gap-fluid);
@@ -9,11 +7,13 @@
 
 .album-list__title {
   font-size: var(--font-size-fluid-h2);
-  /* [수정]: 하드코딩 700에서 공통 굵기 토큰으로 치환 */
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--spacing-md);
   color: var(--color-text-primary);
   letter-spacing: var(--letter-spacing-tight);
+  height: 1.2em;
+  line-height: 1.2;
+  position: relative;
 }
 
 .album-list__grid {
@@ -22,7 +22,6 @@
   gap: var(--grid-gap-fluid);
 }
 
-/* 2열 -> 3열 -> 6열 반응형 분기 */
 @media (min-width: 768px) {
   .album-list__grid {
     grid-template-columns: repeat(3, 1fr);
@@ -39,7 +38,6 @@
   background-color: var(--color-bg-card);
   border-radius: var(--radius-md);
   overflow: hidden;
-  /* [수정]: 0.3s ease 트랜지션을 전역 트랜지션 속도로 치환 */
   transition: background-color var(--transition-smooth);
   cursor: pointer;
   outline: none;
@@ -50,7 +48,6 @@
 }
 
 .album-card:focus-visible {
-  /* [수정]: 포커스 아웃라인 두께 일치화 */
   box-shadow: 0 0 0 2px var(--color-primary);
 }
 
@@ -68,13 +65,15 @@
 
 .album-card__title {
   font-size: var(--font-size-sm);
-  /* [수정]: 하드코딩 600에서 공통 세미볼드 토큰으로 치환 */
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
   margin-bottom: var(--spacing-xs);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  height: 1.2em;
+  line-height: 1.2;
+  position: relative;
 }
 
 .album-card__artist {
@@ -83,4 +82,101 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  height: 1.2em;
+  line-height: 1.2;
+  position: relative;
+}
+
+/* ==========================================================================
+   스켈레톤(is-loading) - !important를 모두 제거한 클린 버전 (CLS 0%)
+   ========================================================================== */
+
+/* 1. 대제목 스켈레톤 */
+.album-list.is-loading .album-list__title {
+  position: relative;
+  height: 1.2em;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-color: transparent;
+  animation: none;
+}
+
+.album-list.is-loading .album-list__title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 140px;
+  height: 0.75em;
+  border-radius: var(--radius-sm);
+  background-color: var(--skeleton-bg-light);
+  animation: var(--skeleton-shimmer);
+}
+
+/* 2. 개별 곡 카드 스켈레톤 */
+.album-card.is-loading {
+  pointer-events: none;
+}
+
+/* 명시도 규칙(20점)에 의해 !important 없이도 display: block(10점)을 정상적으로 덮어씁니다 */
+.album-card.is-loading .album-card__image {
+  display: none;
+}
+
+.album-card.is-loading::before {
+  content: "";
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: var(--skeleton-bg);
+  animation: var(--skeleton-shimmer);
+}
+
+/* 카드 제목 스켈레톤 */
+.album-card.is-loading .album-card__title {
+  display: flex;
+  align-items: center;
+  height: 1.2em;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-color: transparent;
+  animation: none;
+}
+
+.album-card.is-loading .album-card__title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 75%;
+  height: 0.75em;
+  border-radius: var(--radius-sm);
+  background-color: var(--skeleton-bg);
+  animation: var(--skeleton-shimmer);
+}
+
+/* 아티스트 이름 스켈레톤 */
+.album-card.is-loading .album-card__artist {
+  display: flex;
+  align-items: center;
+  height: 1.2em;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-color: transparent;
+  animation: none;
+}
+
+.album-card.is-loading .album-card__artist::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50%;
+  height: 0.75em;
+  border-radius: var(--radius-sm);
+  background-color: var(--skeleton-bg);
+  animation: var(--skeleton-shimmer);
 }

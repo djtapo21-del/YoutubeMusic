@@ -1,84 +1,139 @@
-/* ============================================
-   HeroBanner Component (Template 분리 방식 - 다중 영상 제어)
-   ============================================ */
+/* ==========================================================================
+   Integrated HeroBanner & Playlist Controller
+   ========================================================================== */
 
-let heroBannerTemplate = null;
-let currentVideos = [];
-let currentIndex = 0;
-let activeContainer = null;
+let heroBannerDoc = null;
 
-/**
- * HeroBanner.html로부터 정적 템플릿을 한 번만 비동기 로드하고 메모리에 캐싱합니다.
- */
-async function loadHeroBannerTemplate() {
-  if (heroBannerTemplate) return heroBannerTemplate;
-
-  try {
-    const response = await fetch('components/HeroBanner/HeroBanner.html');
-    if (!response.ok) {
-      throw new Error('HeroBanner template 파일을 로드하는 데 실패했습니다.');
-    }
-
-    const text = await response.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(text, 'text/html');
-
-    heroBannerTemplate = doc.getElementById('hero-banner-template');
-    return heroBannerTemplate;
-  } catch (error) {
-    console.error('[loadHeroBannerTemplate Error]', error);
-    throw error;
-  }
+async function loadHeroBannerDoc() {
+  if (heroBannerDoc) return heroBannerDoc;
+  const response = await fetch('./components/HeroBanner/HeroBanner.html');
+  const text = await response.text();
+  heroBannerDoc = new DOMParser().parseFromString(text, 'text/html');
+  return heroBannerDoc;
 }
 
-/**
- * 유튜브 데이터(배열)를 기반으로 뮤직비디오 배너를 렌더링하고 상태를 제어합니다.
- * @param {HTMLElement} container - 배너가 삽입될 구역 (#hero-banner-section)
- * @param {Array} videos - YouTube video 객체 배열
- * @param {number} startIndex - 렌더링할 타겟 인덱스
- */
+function formatViewCount(views) {
+  if (!views) return '조회수 120만회';
+  const count = parseInt(views, 10);
+  if (isNaN(count)) return views;
+  if (count >= 100000000) {
+    return `조회수 ${(count / 100000000).toFixed(1)}억회`;
+  }
+  if (count >= 10000) {
+    return `조회수 ${(count / 1000).toFixed(0) / 10}만회`;
+  }
+  return `조회수 ${count.toLocaleString()}회`;
+}
+
+export async function renderHeroBannerSkeleton(container) {
+  const doc = await loadHeroBannerDoc();
+  const playerTemplate = doc.getElementById('hero-banner-template');
+  const cardTemplate = doc.getElementById('playlist-card-template');
+
+  const playerClone = playerTemplate.content.cloneNode(true);
+
+  playerClone.querySelector('.hero-banner').classList.add('is-loading');
+  playerClone.querySelector('.playlist').classList.add('is-loading');
+
+  const gridContainer = playerClone.querySelector('#playlist-grid');
+
+  for (let i = 0; i < 10; i++) {
+    const cardClone = cardTemplate.content.cloneNode(true);
+    gridContainer.appendChild(cardClone);
+  }
+
+  container.innerHTML = '';
+  container.appendChild(playerClone);
+}
+
 export async function renderHeroBanner(container, videos, startIndex = 0) {
   if (!container || !videos?.length) return;
 
-  // 상태값 캐싱
-  currentVideos = videos;
-  currentIndex = startIndex;
-  activeContainer = container;
-
   try {
-    const template = await loadHeroBannerTemplate();
-    const clone = template.content.cloneNode(true);
+    const doc = await loadHeroBannerDoc();
+    const playerTemplate = doc.getElementById('hero-banner-template');
+    const cardTemplate = doc.getElementById('playlist-card-template');
 
-    const video = currentVideos[currentIndex];
+    const playerClone = playerTemplate.content.cloneNode(true);
+    const video = videos[startIndex];
 
-    // 데이터가 주입될 DOM 요소 탐색
-    const iframe = clone.querySelector('.hero-banner__video');
-    const title = clone.querySelector('.hero-banner__title');
-    const channel = clone.querySelector('.hero-banner__channel');
-    const rank = clone.querySelector('.hero-banner__rank');
-    const nextBtn = clone.querySelector('.hero-banner__next-btn');
+    const iframe = playerClone.querySelector('.hero-banner__video');
+    const title = playerClone.querySelector('.hero-banner__title');
+    const channel = playerClone.querySelector('.hero-banner__channel');
+    const rank = playerClone.querySelector('.hero-banner__rank');
 
-    // 안전한 데이터 바인딩
     title.textContent = video.title || '알 수 없음';
-    channel.textContent = video.channelTitle || '알 수 없음';
 
-    // 순위 바인딩 (예: "1 / 5 위")
-    rank.textContent = `${currentIndex + 1} / ${currentVideos.length} 위`;
+    const formattedViews = formatViewCount(video.viewCount);
+    channel.textContent = `${video.channelTitle.replace(" - Topic", "")} • ${formattedViews}`;
+    rank.textContent = `현재 ${startIndex + 1}위`;
 
-    // 자동재생(autoplay=1) 및 음소거(mute=1)를 활성화하여 접속 즉시 실행되도록 복구합니다.
-    const videoId = video.videoId;
-    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=1&loop=1&playlist=${videoId}&modestbranding=1&rel=0`;
+    iframe.src = `https://www.youtube.com/embed/${video.videoId}?autoplay=1&mute=1&controls=1&loop=1&playlist=${video.videoId}&modestbranding=1&rel=0`;
 
-    // 다음 버튼 클릭 시 인덱스를 증가시켜 재렌더링 수행
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        const nextIndex = (currentIndex + 1) % currentVideos.length;
-        renderHeroBanner(activeContainer, currentVideos, nextIndex);
+    const gridContainer = playerClone.querySelector('#playlist-grid');
+    const prevBtn = playerClone.querySelector('.playlist__nav-btn--prev');
+    const nextBtn = playerClone.querySelector('.playlist__nav-btn--next');
+
+    videos.forEach((item, index) => {
+      const cardClone = cardTemplate.content.cloneNode(true);
+      const img = cardClone.querySelector('.playlist-card__image');
+      const cardTitle = cardClone.querySelector('.playlist-card__title');
+      const cardArtist = cardClone.querySelector('.playlist-card__artist');
+
+      img.src = item.thumbnail;
+      img.alt = item.title;
+      cardTitle.textContent = item.title.split(' - ')[1] || item.title;
+      cardArtist.textContent = item.channelTitle.replace(" - Topic", "");
+
+      const cardElement = cardClone.querySelector('.playlist-card');
+      if (cardElement) {
+        if (index === startIndex) {
+          cardElement.classList.add('is-active');
+        }
+
+        cardElement.addEventListener('click', () => {
+          renderHeroBanner(container, videos, index);
+          container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+
+      gridContainer.appendChild(cardClone);
+    });
+
+    // 🚨 이전(Left) 화살표 클릭 핸들러 (왼쪽으로 카드 2개 간격만큼 이동)
+    if (prevBtn && gridContainer) {
+      prevBtn.addEventListener('click', () => {
+        const firstCard = gridContainer.querySelector('.playlist-card');
+        if (firstCard) {
+          const cardWidth = firstCard.offsetWidth;
+          const gap = parseInt(getComputedStyle(gridContainer).gap) || 16;
+          const scrollAmount = (cardWidth + gap) * 2;
+          gridContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        }
       });
     }
 
-    container.innerHTML = ''; // 기존 마크업 초기화
-    container.appendChild(clone);
+    // 다음(Right) 화살표 클릭 핸들러
+    if (nextBtn && gridContainer) {
+      nextBtn.addEventListener('click', () => {
+        const firstCard = gridContainer.querySelector('.playlist-card');
+        if (firstCard) {
+          const cardWidth = firstCard.offsetWidth;
+          const gap = parseInt(getComputedStyle(gridContainer).gap) || 16;
+          const scrollAmount = (cardWidth + gap) * 2;
+
+          if (gridContainer.scrollLeft + gridContainer.clientWidth >= gridContainer.scrollWidth - 10) {
+            gridContainer.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            gridContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+          }
+        }
+      });
+    }
+
+    container.innerHTML = '';
+    container.appendChild(playerClone);
+
   } catch (error) {
     console.error('[renderHeroBanner Error]', error);
   }

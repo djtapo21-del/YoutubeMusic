@@ -2,11 +2,11 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  /* [수정 완료]: 헤더 전용 토큰에서 범용 유리(Glass) 효과 토큰으로 변경 */
   background-color: var(--color-glass-bg);
   backdrop-filter: blur(var(--blur-glass));
   -webkit-backdrop-filter: blur(var(--blur-glass));
   border-bottom: 1px solid var(--color-glass-border);
+  padding-top: env(safe-area-inset-top, 0);
 }
 
 .header__inner {

@@ -1,17 +1,15 @@
 /* ============================================
-   App Entry Point (YouTube API Mode)
+   App Entry Point (Clean & Consolidated)
    ============================================ */
-
-console.log("YouTube Music 앱이 시작되었습니다!");
 
 import { renderHeader } from '../components/Header/Header.js';
 import { renderFooter } from '../components/Footer/Footer.js';
-import { renderHeroBanner } from '../components/HeroBanner/HeroBanner.js';
-import { renderAlbumList } from '../components/AlbumCard/AlbumCard.js';
+import { renderHeroBanner, renderHeroBannerSkeleton } from '../components/HeroBanner/HeroBanner.js';
+import { renderAlbumList, renderAlbumSkeleton } from '../components/AlbumCard/AlbumCard.js';
 import { getLatestReleases, getTrendingVideo } from './api.js';
 
 let isLibraryLoaded = false;
-let globalTracks = []; // 전체 20곡 캐싱용
+let globalTracks = [];
 
 async function initApp() {
   const headerContainer = document.getElementById('header-section');
@@ -20,37 +18,38 @@ async function initApp() {
   const contentContainer = document.getElementById('content-section');
 
   try {
+    // 1. 헤더와 통합 배너(플레이어 + TOP 10 리스트) 뼈대를 동시 즉시 렌더링
     await Promise.all([
       renderHeader(headerContainer),
-      renderFooter(footerContainer)
+      renderHeroBannerSkeleton(bannerContainer),
+      renderAlbumSkeleton(contentContainer, 6)
     ]);
 
     setupTabNavigation();
+    renderFooter(footerContainer);
 
-    // 유튜브 비디오 배너와 유튜브 인기 음악 20곡을 가져옵니다.
+    // 2. 비동기 데이터 로딩
     const [videoData, musicData] = await Promise.all([
       getTrendingVideo(),
       getLatestReleases()
     ]);
 
-    globalTracks = musicData; // 라이브러리 화면을 위해 데이터 저장
+    globalTracks = musicData;
 
+    // 3. 통합 배너 및 플레이리스트 렌더링 (클릭 상호작용은 HeroBanner.js 내부에서 자체 완결됨)
     if (videoData && videoData.length > 0) {
-      await renderHeroBanner(bannerContainer, videoData);
+      await renderHeroBanner(bannerContainer, videoData, 0);
     }
 
-    // 홈 화면에는 1~6위 곡을 포맷팅하여 전달
+    // 4. 하단 앨범 리스트 데이터 처리
     const homeTracks = globalTracks.slice(0, 6).map(track => ({
       name: track.title,
       artists: [{ name: track.artist }],
       album: { images: [{ url: track.thumbnail }] },
-      external_urls: { spotify: track.url } // 변수명은 유지하되 실제론 유튜브 URL이 들어감
+      external_urls: { spotify: track.url }
     }));
 
     await renderAlbumList(contentContainer, homeTracks);
-
-    const homeTitle = contentContainer.querySelector('.album-list__title');
-    if (homeTitle) homeTitle.textContent = "국내 인기 급상승 음악";
 
   } catch (error) {
     console.error('[initApp Error]', error);
@@ -97,7 +96,6 @@ function setupTabNavigation() {
 function loadLibraryData() {
   const libraryContainer = document.getElementById('library-content-section');
   try {
-    // 라이브러리 화면에는 중복을 피하기 위해 7~16위 곡(10곡)을 전달
     const libraryTracks = globalTracks.slice(6, 16).map(track => ({
       name: track.title,
       artists: [{ name: track.artist }],
@@ -106,10 +104,6 @@ function loadLibraryData() {
     }));
 
     renderAlbumList(libraryContainer, libraryTracks);
-
-    const libraryTitle = libraryContainer.querySelector('.album-list__title');
-    if (libraryTitle) libraryTitle.textContent = "내 보관함 추천 곡";
-
     isLibraryLoaded = true;
   } catch (error) {
     showError(libraryContainer, '보관함을 불러오지 못했습니다.');

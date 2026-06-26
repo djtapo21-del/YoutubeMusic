@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -13,151 +14,27 @@
   <link rel="stylesheet" href="components/AlbumCard/AlbumCard.css">
 </head>
 
-<!-- index.html의 body 안쪽 구조를 아래와 같이 수정합니다 -->
-
 <body>
   <div id="app">
     <header id="header-section"></header>
 
-    <!-- 뷰 컨테이너: 이 안에서 탭에 따라 화면이 교체됩니다 -->
     <div id="view-container">
-
       <!-- ==========================================
-           [VIEW 1] 홈 화면 (배너 + 최신곡)
+           [VIEW 1] 홈 화면
            ========================================== -->
       <div id="home-view">
-        <section id="hero-banner-section">
-          <!-- 기존 배너 스켈레톤 코드 그대로 유지 -->
-          <section class="hero-banner" aria-hidden="true">
-            <figure class="hero-banner__video-wrapper skeleton-shimmer"></figure>
-            <div class="hero-banner__info-container container">
-              <div class="hero-banner__content-left">
-                <span class="skeleton-block skeleton-block--pill skeleton-shimmer skeleton-banner-badge"></span>
-                <h2 class="skeleton-block skeleton-shimmer skeleton-banner-title"></h2>
-                <p class="skeleton-block skeleton-shimmer skeleton-banner-channel"></p>
-              </div>
-              <div class="hero-banner__content-right">
-                <span class="skeleton-block skeleton-shimmer skeleton-banner-rank"></span>
-                <span class="skeleton-block skeleton-block--circle skeleton-shimmer skeleton-banner-btn"></span>
-              </div>
-            </div>
-          </section>
-        </section>
-
-        <main id="content-section" class="container">
-          <!-- 기존 앨범 스켈레톤 코드 그대로 유지 -->
-          <section class="album-list" aria-hidden="true">
-            <h2 class="skeleton-block skeleton-shimmer skeleton-album-title" style="margin-bottom: var(--spacing-md);">
-            </h2>
-            <div class="album-list__grid">
-              <!-- 카드 6개 반복... -->
-              <article class="album-card">
-                <figure class="album-card__image skeleton-shimmer"></figure>
-                <div class="album-card__info">
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-title"></p>
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-artist"></p>
-                </div>
-              </article>
-              <article class="album-card">
-                <figure class="album-card__image skeleton-shimmer"></figure>
-                <div class="album-card__info">
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-title"></p>
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-artist"></p>
-                </div>
-              </article>
-              <article class="album-card">
-                <figure class="album-card__image skeleton-shimmer"></figure>
-                <div class="album-card__info">
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-title"></p>
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-artist"></p>
-                </div>
-              </article>
-              <article class="album-card">
-                <figure class="album-card__image skeleton-shimmer"></figure>
-                <div class="album-card__info">
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-title"></p>
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-artist"></p>
-                </div>
-              </article>
-              <article class="album-card">
-                <figure class="album-card__image skeleton-shimmer"></figure>
-                <div class="album-card__info">
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-title"></p>
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-artist"></p>
-                </div>
-              </article>
-              <article class="album-card">
-                <figure class="album-card__image skeleton-shimmer"></figure>
-                <div class="album-card__info">
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-title"></p>
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-artist"></p>
-                </div>
-              </article>
-            </div>
-          </section>
-        </main>
+        <!-- 🚨 배너 플레이어와 TOP 10 플레이리스트가 이 안에 서 동시에 그려집니다 -->
+        <section id="hero-banner-section"></section>
+        <main id="content-section" class="container"></main>
       </div>
 
       <!-- ==========================================
-           [VIEW 2] 라이브러리 화면 (기본적으로 숨김 처리 is-hidden)
+           [VIEW 2] 라이브러리 화면
            ========================================== -->
       <div id="library-view" class="is-hidden">
-        <main id="library-content-section" class="container">
-          <!-- 라이브러리는 보관함 느낌을 주기 위해 상단 여백을 주고 스켈레톤 12개를 배치합니다 -->
-          <section class="album-list" aria-hidden="true" style="padding-top: var(--section-gap-fluid);">
-            <h2 class="skeleton-block skeleton-shimmer skeleton-album-title"
-              style="width: 200px; margin-bottom: var(--spacing-md);"></h2>
-            <div class="album-list__grid">
-              <!-- 내 보관함 느낌으로 카드 12개 스켈레톤 배치 -->
-              <article class="album-card">
-                <figure class="album-card__image skeleton-shimmer"></figure>
-                <div class="album-card__info">
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-title"></p>
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-artist"></p>
-                </div>
-              </article>
-              <article class="album-card">
-                <figure class="album-card__image skeleton-shimmer"></figure>
-                <div class="album-card__info">
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-title"></p>
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-artist"></p>
-                </div>
-              </article>
-              <article class="album-card">
-                <figure class="album-card__image skeleton-shimmer"></figure>
-                <div class="album-card__info">
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-title"></p>
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-artist"></p>
-                </div>
-              </article>
-              <article class="album-card">
-                <figure class="album-card__image skeleton-shimmer"></figure>
-                <div class="album-card__info">
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-title"></p>
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-artist"></p>
-                </div>
-              </article>
-              <article class="album-card">
-                <figure class="album-card__image skeleton-shimmer"></figure>
-                <div class="album-card__info">
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-title"></p>
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-artist"></p>
-                </div>
-              </article>
-              <article class="album-card">
-                <figure class="album-card__image skeleton-shimmer"></figure>
-                <div class="album-card__info">
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-title"></p>
-                  <p class="skeleton-block skeleton-shimmer skeleton-card-artist"></p>
-                </div>
-              </article>
-              <!-- 필요하다면 6개 더 추가 -->
-            </div>
-          </section>
-        </main>
+        <main id="library-content-section" class="container"></main>
       </div>
-
-    </div> <!-- // view-container -->
+    </div>
 
     <footer id="footer-section"></footer>
   </div>
